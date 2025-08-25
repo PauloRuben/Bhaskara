@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class Nu extends JFrame {
 
@@ -24,6 +25,7 @@ public class Nu extends JFrame {
 	private JTextField textCoefA;
 	private JTextField textCoefB;
 	private JTextField textCoefC;
+	private JLabel lblInfor_1;
 
 	/**
 	 * Launch the application.
@@ -46,10 +48,15 @@ public class Nu extends JFrame {
 	 */
 	public Nu() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 746, 324);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		
+		JLabel lblInfor_1 = new JLabel("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		lblInfor_1.setVerticalAlignment(SwingConstants.TOP);
+		lblInfor_1.setToolTipText("");
+		lblInfor_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		textCoefA = new JTextField();
 		textCoefA.setColumns(10);
@@ -71,6 +78,7 @@ public class Nu extends JFrame {
 		JLabel lblRaiz2 = new JLabel("0");
 		lblRaiz2.setForeground(new Color(255, 0, 0));
 		lblRaiz2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		JPanel panelInfor = new JPanel();
 		
 		JButton btnIgual = new JButton("=");
 		btnIgual.addActionListener(new ActionListener() {
@@ -83,7 +91,8 @@ public class Nu extends JFrame {
 				lblDelta.setText(String.format("%.2f",Delta));
 				
 				if( Delta >  0) {
-					double raiz = - CoefB /(2 * CoefA);
+					
+					double o = - CoefB /(2 * CoefA);
 					double r = Math.sqrt(Delta);
 					double raiz1 =  - Math.sqrt(Delta) / (2 * CoefA);
 					double raiz2 = - CoefB + r / (2 * CoefA);
@@ -91,16 +100,23 @@ public class Nu extends JFrame {
 					lblRaiz1.setText(String.format("%.2f", raiz1));
 					lblRaiz2.setText(String.format("%.2f", raiz2));
 					
+					lblInfor_1.setText("Sua equação é exata, pois seu Delta é maior que 0, e tem raízes diferentes");
+					
 				}else if(Delta == 0) {
 					double raiz = - CoefB /(2 * CoefA);;
 					lblRaiz1.setText(String.format("%.2f", raiz));
 					lblRaiz2.setText(String.format("%.2f", raiz));
+					
+					lblInfor_1.setText("Sua equação é exata, porém seu Delta é igual a 0, e tem raízes iguais.");
 				}
 				else {
 					int a  = 0;
 					lblRaiz1.setText(Integer.toString(a));
 					lblRaiz2.setText(Integer.toString(a));
+					
+					lblInfor_1.setText("Sua equação não e exata, pois seu Delta é menor que 0, Não á raízes(São números complexas).");
 				}
+				panelInfor.setVisible(true);
 			}
 		});
 		
@@ -120,14 +136,9 @@ public class Nu extends JFrame {
 		lblNewLabel_4.setForeground(new Color(255, 0, 0));
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
-
-		
-		JLabel lblNewLabel_6 = new JLabel("Raízes");
+		JLabel lblNewLabel_6 = new JLabel("Raízes:");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
-
-		
-
 		
 		JLabel lblNewLabel_7 = new JLabel("Raiz 1(x¹):");
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -136,97 +147,120 @@ public class Nu extends JFrame {
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblMensagem = new JLabel("");
+		
+
+		
+
+		GroupLayout gl_panelInfor = new GroupLayout(panelInfor);
+		gl_panelInfor.setHorizontalGroup(
+			gl_panelInfor.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelInfor.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblInfor_1, GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		gl_panelInfor.setVerticalGroup(
+			gl_panelInfor.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelInfor.createSequentialGroup()
+					.addGap(25)
+					.addComponent(lblInfor_1, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(42, Short.MAX_VALUE))
+		);
+		panelInfor.setLayout(gl_panelInfor);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
+							.addGap(10)
+							.addComponent(panelInfor, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(lblMensagem)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(71)
+							.addComponent(lblNewLabel_4))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(15)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblNewLabel)
-								.addComponent(lblNewLabel_2)
-								.addComponent(lblNewLabel_1)))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(66)
-							.addComponent(lblNewLabel_4)))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(textCoefB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textCoefA, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textCoefC, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addComponent(btnIgual)
-					.addGap(27)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewLabel_7)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_contentPane.createSequentialGroup()
-								.addComponent(lblNewLabel_6)
-								.addContainerGap())
+								.addComponent(lblNewLabel_1)
+								.addComponent(lblNewLabel_2))
+							.addGap(17)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(textCoefA, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textCoefB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textCoefC, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addComponent(btnIgual)
+							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblNewLabel_8)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addGap(15)
-											.addComponent(lblMensagem))
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(lblRaiz2, GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE))
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(lblRaiz1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-									.addContainerGap(165, Short.MAX_VALUE))
+									.addComponent(lblNewLabel_6)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblNewLabel_8)
+										.addComponent(lblNewLabel_7))
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblRaiz2, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblRaiz1, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)))
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addComponent(lblNewLabel_3)
-									.addGap(18)
-									.addComponent(lblDelta, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-									.addGap(100))))))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblDelta, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)))))
+					.addContainerGap(74, GroupLayout.PREFERRED_SIZE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+					.addComponent(lblMensagem)
+					.addGap(21)
+					.addComponent(lblNewLabel_4)
+					.addGap(7)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
+							.addGap(4)
+							.addComponent(lblNewLabel)
+							.addGap(13)
+							.addComponent(lblNewLabel_1)
+							.addGap(10)
+							.addComponent(lblNewLabel_2))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(8)
+							.addComponent(textCoefA, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(15)
+							.addComponent(textCoefB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(12)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(textCoefC, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNewLabel_8)
+								.addComponent(lblRaiz2)))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(42)
+							.addComponent(btnIgual))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(4)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblNewLabel_3)
 								.addComponent(lblDelta))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lblNewLabel_6)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNewLabel_7)
-								.addComponent(lblRaiz1))
-							.addGap(16)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNewLabel_8)
-								.addComponent(lblRaiz2))
-							.addGap(30))
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addGap(16)
-							.addComponent(lblNewLabel_4)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNewLabel)
-								.addComponent(textCoefA, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(11)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNewLabel_1)
-								.addComponent(textCoefB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnIgual))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNewLabel_2)
-								.addComponent(textCoefC, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(34)
-							.addComponent(lblMensagem)))
-					.addContainerGap(103, Short.MAX_VALUE))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(18)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblNewLabel_7)
+										.addComponent(lblRaiz1))
+									.addGap(12))
+								.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+									.addComponent(lblNewLabel_6)
+									.addGap(15)))))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(panelInfor, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(208, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
+		panelInfor.setVisible(false);
 
 	}
-
 }
